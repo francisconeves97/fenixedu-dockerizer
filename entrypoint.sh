@@ -2,9 +2,10 @@
 cd /root
 
 rm -rf "/root/${PROJECT_NAME}-webapp"
-curl 'https://start.fenixedu.org/webapp.zip' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Connection: keep-alive' --data "groupId=org.fenixedu&artifactId=${PROJECT_NAME}-webapp&name=${PROJECT_NAME}-webapp&mavenVersion=2.3.0&bennuVersion=${BENNU_VERSION}&dbHost=localhost&dbPort=3306&dbName=fenixedu-$PROJECT_NAME&dbUser=root&dbPassword=&generate=" --compressed -o webapp.zip
+curl 'https://codeload.github.com/francisconeves97/fenixedu-webapp/zip/master' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Connection: keep-alive' --compressed -o webapp.zip
 
 unzip -o webapp.zip
+mv "fenixedu-webapp-master/" "${PROJECT_NAME}-webapp"
 VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version|grep -Ev '(^\[|Download\w+:)')
 cd "/root/${PROJECT_NAME}-webapp"
 

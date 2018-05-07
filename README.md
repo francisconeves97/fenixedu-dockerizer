@@ -9,9 +9,8 @@ a [http://github.com/jwilder/nginx-proxy](jwilder/nginx-proxy):
 version: '2'
 services:
     fenixedu:
-        image: diutsu/fenixedu
+        image: fenixedu
         container_name: fenixedu-webapp
-        network_mode: "bridge"
         environment:
             - PROJECT_NAME=fenixedu
             - PROJECT_VERSION=1.0.0-SNAPSHOT
@@ -22,22 +21,21 @@ services:
             - DB_USER=root
             - DB_PASS=pass
             - CONTEXT_PATH=/
-            - VIRTUAL_HOST=fenixedu.org
+            - VIRTUAL_HOST=localhost
         volumes:
             - ./configs:/cfg
         ports:
             - 8080:8080
         expose: 
             - 8080
-        links:
-            - fenixedu-db:mysql
+        depends_on:
+            - fenixedu-db
     fenixedu-db:
         image: mysql:5.7.22
         container_name: fenixedu-db
         environment:
             - MYSQL_ROOT_PASSWORD=pass
             - MYSQL_DATABASE=fenixedu-db
-        network_mode: "bridge"
 ```
 Note that you can also use your own mysql server elsewhere
 
