@@ -15,7 +15,7 @@ services:
         environment:
             - PROJECT_NAME=fenixedu
             - PROJECT_VERSION=1.0.0-SNAPSHOT
-            - BENNU_VERSION=4.0.0.RC2
+            - BENNU_VERSION=5.0.2
             - DB_HOST=fenixedu-db
             - DB_PORT=3306
             - DB_DATABASE=fenixedu-db
@@ -25,16 +25,19 @@ services:
             - VIRTUAL_HOST=fenixedu.org
         volumes:
             - ./configs:/cfg
+        ports:
+            - 8080:8080
         expose: 
             - 8080
         links:
             - fenixedu-db:mysql
     fenixedu-db:
-        image: mysql
+        image: mysql:5.7.22
         container_name: fenixedu-db
         environment:
             - MYSQL_ROOT_PASSWORD=pass
-            - MYSQL_DATABASE=fenixdu-db
+            - MYSQL_DATABASE=fenixedu-db
+        network_mode: "bridge"
 ```
 Note that you can also use your own mysql server elsewhere
 
